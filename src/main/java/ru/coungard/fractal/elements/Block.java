@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import java.util.ArrayList;
 import java.util.List;
 
+//  Класс представляет собой сетку тайлов 3x3, классическая реализация крестиков-ноликов.
 public class Block extends StackPane {
 
    static List<Combo> combos = new ArrayList<>();
@@ -27,6 +28,7 @@ public class Block extends StackPane {
         createCombos();
     }
 
+    // инициализация возможных комбинаций внутри данного блока
     private void createCombos() {
         for (int x = 0; x < 3; x++) {
             combos.add(new Combo(board[x][0], board[x][1], board[x][2]));
@@ -40,6 +42,8 @@ public class Block extends StackPane {
         combos.add(new Combo(board[2][0], board[1][1], board[0][2]));
     }
 
+    /* метод возвращает true, если все тайлы данного блока уже были задействованы, то есть места для дальнейшего хода в данном блоке уже нет.
+     */
     public boolean isOvercrowded() {
         boolean result = true;
         for (int i = 0; i <3; i++) {

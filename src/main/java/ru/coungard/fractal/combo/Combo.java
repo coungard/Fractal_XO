@@ -4,6 +4,7 @@ import ru.coungard.fractal.elements.Block;
 import ru.coungard.fractal.elements.Tile;
 import ru.coungard.fractal.main.Main;
 
+// Перебор всех возможных выигрышных комбинаций XOgame
 public class Combo {
 
     private Tile[] tiles;

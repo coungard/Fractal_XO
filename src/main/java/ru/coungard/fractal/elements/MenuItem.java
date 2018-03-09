@@ -10,6 +10,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+//  Класс представляет собой сегмент, с которым взаимодействует пользователь из главного меню игры
 public class MenuItem extends StackPane {
 
     public MenuItem(String name) {

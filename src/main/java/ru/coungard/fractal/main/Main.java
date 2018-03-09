@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
+/*  Главный класс проекта, в котором инициализируется сцена, с сопутствующим добавлением в
+нее элементов игры. Также класс отвечает за функционал с логикой перемещения из блока в блок,
+установки наложения эффектов и т.д.(Что не совсем соответстует OOP)
+ */
 public class Main extends Application {
     public static Block[][] blocks = new Block[3][3];
     public static Block blockForFill;
@@ -81,6 +85,7 @@ public class Main extends Application {
         return mainRoot;
     }
 
+    // создание основного поля 3х3 из готовых блоков с тайлами
     private static Pane createGameRoot() {
         Pane gameRoot = new Pane();
         gameRoot.setPrefSize(600, 600);
@@ -116,6 +121,11 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /*  Задача данного метода - это организация области видимости для хода игрока.
+    Возможность хода после каждого действия обуславливается границами, заданными правилами
+    игры. Хочу отметить, что статический blockForFill нам нужен для дальнейшей работы с ним
+    из другого класса.(Закрашивание, занесение в список завершенных блоков и т.д.)
+     */
     public static void availability() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -143,6 +153,7 @@ public class Main extends Application {
         }
     }
 
+    // Mетод возвращает рандомный не переполненный блок.
     private static Block getRandomBlock() {
         Random rand = new Random();
         Block randomBlock;
@@ -156,6 +167,10 @@ public class Main extends Application {
         return randomBlock;
     }
 
+    /*  Метод возвращает блок из общеигровой сетки 3х3 , которому соответствует тайл,
+    находящийся в такой же позиции внутри определенного блока, по которому происходит
+    нажатие.
+     */
     private static Block getAvailableBlock() {
         Block availableBlock = null;
 
@@ -196,6 +211,7 @@ public class Main extends Application {
         block.setEffect(lighting);
     }
 
+    //  примитивная проверка на переполнение всех блоков
     public static boolean allBlocksAreOvercrowded() {
         boolean result = true;
         for (int i = 0; i < 3; i++) {
