@@ -17,6 +17,9 @@ import javafx.scene.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*  Класс отвечает за сущность(тайл), с которым взаимодействует пользователь, на уровне ячейки. После нажатия мышкой по определенной ячейке, происходит смещение в область, которая соответствует области внутри блока, в котором находится ячейка. Игра продолжается до тех пор, пока 1 из игроков(X or O) не выстраивает ряд из общих блоков по простому принципу крестиков ноликов.
+ */
 public class Tile extends StackPane {
     public static List<Block> completedBlocksX = new ArrayList<>();
     public static List<Block> completedBlocksO = new ArrayList<>();
@@ -29,8 +32,10 @@ public class Tile extends StackPane {
 
     public static boolean playable = true;
     public static Tile currentTile;
-    public static boolean anchorStep = true;
+    public static boolean anchorStep = true; // якорь, которые обрабатывает "лишние" касания
 
+    /*  В конструкторе объявлены прямоугольник, чтобы растянуть тайл, и компонент Text, нужный для дальнейшего использования в качестве значения(X или O)
+     */
     Tile() {
         Rectangle rect = new Rectangle(60, 60);
         rect.setFill(Color.LAVENDER);
@@ -42,6 +47,8 @@ public class Tile extends StackPane {
 
         getChildren().addAll(rect, text);
 
+        /*  Основной метод класса, обрабатывает нажатие по области нашего тайла. После тривиальных действий по обработке ненужных касаний и прочего, выполняется проверка на касание правой и левой кнопки мыши (то есть X или O). Очевидным завершением каждого варианта является метод ckeckState(), обрабатывающий всевозможные исходы.
+         */
         setOnMouseClicked(event -> {
             boolean middleTouch = event.getButton() == MouseButton.MIDDLE;
             if(!playable | middleTouch) {
@@ -78,6 +85,8 @@ public class Tile extends StackPane {
         });
     }
 
+    /* Проверка (которая будет выполнена после каждого хода игроков) на налицие завершенных комбинаций внутри каждого блока (3х3). Также осуществляется проверка на налицие комбинаций внешних блоков, и как итог, победа одного из игроков. Завершается метод проверкой на ничейный результат.
+     */
     private void checkState() {
         for (Combo combo : Block.combos) {
             if (combo.isComplete()) {
@@ -97,6 +106,7 @@ public class Tile extends StackPane {
         }
     }
 
+    // Добавляем нужный нам блок в список завершенных блоков X или O. Затем закрашиваем.
     private void placeTheBlock() {
 
         if (getValue().equals("X") && !completedBlocksO.contains(Main.blockForFill)) {
@@ -109,6 +119,8 @@ public class Tile extends StackPane {
         }
     }
 
+    /*  Метод накладывает на блок, который мы передаем в аргумент, уже один из заготовленных рисунков. X и O в зависимости от блока победителя соответственно.
+     */
     private void fillBlock(Block block) {
         String desiredUri = String.format("images/%s.png", getValue());
 
@@ -128,6 +140,7 @@ public class Tile extends StackPane {
         Main.gameRoot.getChildren().add(displayOwnerBlock);
     }
 
+    // устанавливаем тайл, переданный в аргумент, как действующую ячейку
     private static void setCurrentTile(Tile currentTile) {
         Tile.currentTile = currentTile;
     }
@@ -155,6 +168,7 @@ public class Tile extends StackPane {
         alert.show();
     }
 
+    // метод возвращает X или O текущего тайла
     public String getValue() {
         return text.getText();
     }

@@ -4,12 +4,15 @@ import javazoom.jl.player.Player;
 
 import java.io.FileInputStream;
 
+/* Проигрыватель mp3 (не без сторонней библиотеки, для простоты) с возможностью повторного
+воспроизведения композиции.
+ */
 public class MyMusicPlayer extends Thread{
     private String fileLocation;
     private boolean loop;
     private Player player;
 
-    public MyMusicPlayer(String fileLocation, boolean loop) {
+    MyMusicPlayer(String fileLocation, boolean loop) {
         this.fileLocation = fileLocation;
         this.loop = loop;
     }
@@ -27,7 +30,7 @@ public class MyMusicPlayer extends Thread{
         }
     }
 
-    public void close(){
+    void close(){
         loop = false;
         player.close();
         this.interrupt();
