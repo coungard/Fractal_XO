@@ -10,7 +10,25 @@
 
     <build>
         <finalName>Fractal_XO</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>ru.coungard.fractal.main.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -23,6 +41,5 @@
             <version>1.0.1</version>
         </dependency>
     </dependencies>
-
 
 </project>
